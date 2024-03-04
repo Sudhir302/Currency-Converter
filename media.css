@@ -1,0 +1,39 @@
+/* adding media for max width 500px */
+
+@media screen and (max-width :500px){
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+
+    .amtfromto{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        background-color: rgb(188, 188, 198);
+    }
+
+    .amount{
+        width: 100%;
+    }
+    #enterAmt{
+        width: 100%;
+        text-align: center;
+        border-radius: 0;
+    }
+    .amount p{
+        text-align: center;
+    }
+
+    .submit{
+        margin: 0px;
+    }
+
+    .value{
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+    }
+}
