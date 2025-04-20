@@ -1,61 +1,62 @@
 const BASE_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
 
-const fromCurr = document.querySelector("#fromCntry");
-const toCurr = document.querySelector(".to select");
+const fromCurr = document.querySelector("#fromCurrency");
+const toCurr = document.querySelector("#toCurrency");
+const resultBox = document.querySelector("#result");
+const btn = document.querySelector("#convertBtn");
 
-const valueMsg = document.querySelector(".value");
+const select = document.querySelectorAll("select");
 
-
-let select = document.querySelectorAll("select");
-const btn = document.querySelector("button");
-
-for(let s of select){
-    for(currCode in countryList){
-        let newOption = document.createElement("option");
-        newOption.innerText = currCode;
-        newOption.value = currCode;
-        if(s.name === "from" && currCode === "NPR"){
-            newOption.selected = "selected";
-        }
-        else if (s.name === "to" && currCode === "INR"){
-            newOption.selected = "selected";
-        }
-        s.append(newOption);
-    }
-    s.addEventListener('change', (evt) => {
-        flagUpdate(evt.target);
-    })
-}
-
-
-const flagUpdate = (element) =>{
-    let currCode = element.value;
-    let countryCode = countryList[currCode];
-    let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png`
-    let img = element.parentElement.querySelector("img");
-    img.src = newSrc;
-}
-
-
-btn.addEventListener("click", async(evt) =>{
-    evt.preventDefault();
-    let amount = document.querySelector(".amount input");
-    let amtVal = amount.value;
-    if(amtVal === "" || amtVal < 1){
-        amtVal= 1;
-        amount.value= "1";
-    }
-
-    const URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}.json`;
-    let response = await fetch(URL);
-    let data = await response.json();
-    let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
+// Load currency codes and set default flags
+for (let selectTag of select) {
+  for (let currCode in countryList) {
+    let option = document.createElement("option");
+    option.value = currCode;
+    option.innerText = currCode;
     
+    // Set defaults
+    if (selectTag.id === "fromCurrency" && currCode === "USD") {
+      option.selected = true;
+      document.querySelector("#from-flag").src = `https://flagsapi.com/${countryList[currCode]}/flat/64.png`;
+    }
+    if (selectTag.id === "toCurrency" && currCode === "INR") {
+      option.selected = true;
+      document.querySelector("#to-flag").src = `https://flagsapi.com/${countryList[currCode]}/flat/64.png`;
+    }
 
+    selectTag.append(option);
+  }
 
-    let finalAmount = amtVal * rate;
-    valueMsg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`;
+  // Flag update on currency change
+  selectTag.addEventListener("change", (e) => {
+    const imgTag = e.target.id === "fromCurrency" ? document.querySelector("#from-flag") : document.querySelector("#to-flag");
+    imgTag.src = `https://flagsapi.com/${countryList[e.target.value]}/flat/64.png`;
+  });
+}
+
+// Fetch & convert currency
+btn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  let amtInput = document.querySelector("#amount");
+  let amtVal = parseFloat(amtInput.value);
+
+  if (!amtVal || amtVal <= 0) {
+    amtVal = 1;
+    amtInput.value = "1";
+  }
+
+  const from = fromCurr.value.toLowerCase();
+  const to = toCurr.value.toLowerCase();
+
+  try {
+    const res = await fetch(`${BASE_URL}/${from}.json`);
+    const data = await res.json();
+    const rate = data[from][to];
+    const finalAmount = (amtVal * rate).toFixed(2);
+
+    resultBox.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`;
+  } catch (error) {
+    resultBox.innerText = "Something went wrong. Please try again!";
+    console.error("API Error:", error);
+  }
 });
-
-
-// '${BASE_URL}/${toCurr.valur.toLowerCase()}.json';
