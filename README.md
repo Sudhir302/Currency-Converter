@@ -1,5 +1,6 @@
 # Currency Converter
- ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 A modern, responsive Currency Converter web app that fetches real-time exchange rates using a public API. Easily convert between currencies with visual flag support and intuitive UI. Built with HTML, CSS, and JavaScript – no frameworks, just clean and functional code.
