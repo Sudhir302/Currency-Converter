@@ -13,8 +13,8 @@ A modern, responsive Currency Converter web app that fetches real-time exchange 
 
 ## Screenshots
 <div>
-  <img src = "./screenshot/mob.jpg" alt = "mobile-view" width = "300" height = "500" />
-  <img src = "./screenshot/desk.jpg" alt = "desktop-view" width = "701" height = "500" />
+  <img src = "./screenshot/desk.jpg" alt = "desktop-view" width = "500" />
+  <img src = "./screenshot/mob.jpg" alt = "mobile-view" width= "250" height = "500" />
 </div>
 
 ## 👩‍💻 Technologies Used
